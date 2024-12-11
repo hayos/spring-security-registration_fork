@@ -1,3 +1,9 @@
+---
+This is a fork of [https://github.com/Baeldung/spring-security-registration](https://github.com/Baeldung/spring-security-registration) where the 2FA example has been made functional again and the GUI was internationalized to German.<br/>
+Once deployed, you can now access the app at: [https://localhost:8083]<br/>
+hys 11/24
+---
+
 ## Login and Registration Example Project with Spring Security
 If you're already a student of Learn Spring Security, you can get started diving deeper into registration with Module 2 </br>
 If you're not yet a student, you can get access to the course here: https://bit.ly/github-lss
