@@ -1,6 +1,7 @@
----
-This is a fork of [https://github.com/Baeldung/spring-security-registration](https://github.com/Baeldung/spring-security-registration) where the 2FA example has been made functional again and the GUI was internationalized to German.<br/>
-Once deployed, you can now access the app at: [https://localhost:8083]<br/>
+This is a fork of https://github.com/Baeldung/spring-security-registration where the 2FA example has been made functional again and the GUI was internationalized to German.
+
+Once deployed, you can now access the app at: https://localhost:8083
+
 hys 11/24
 ---
 
