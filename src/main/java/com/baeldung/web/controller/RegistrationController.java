@@ -62,15 +62,34 @@ public class RegistrationController {
         final String result = userService.validateVerificationToken(token);
         if (result.equals("valid")) {
             final User user = userService.getUser(token);
-            // if (user.isUsing2FA()) {
-            // model.addAttribute("qr", userService.generateQRUrl(user));
-            // return "redirect:/qrcode.html?lang=" + locale.getLanguage();
-            // }
+             if (user.isUsing2FA()) {
+	             return new ModelAndView("redirect:/qrcode?token=" + token, model);
+             }
             authWithoutPassword(user);
             model.addAttribute("messageKey", "message.accountVerified");
             return new ModelAndView("redirect:/console", model);
         }
 
+        model.addAttribute("messageKey", "auth.message." + result);
+        model.addAttribute("expired", "expired".equals(result));
+        model.addAttribute("token", token);
+        return new ModelAndView("redirect:/badUser", model);
+    }
+    
+    @GetMapping("/qrcode")
+    public ModelAndView qrcode(final HttpServletRequest request, final ModelMap model, @RequestParam("token") final String token) throws UnsupportedEncodingException {
+        Locale locale = request.getLocale();
+        model.addAttribute("lang", locale.getLanguage());
+        
+        final String result = userService.validateVerificationToken(token);
+        if (result.equals("valid")) {
+            final User user = userService.getUser(token);
+             if (user.isUsing2FA()) {
+	             model.addAttribute("qr", userService.generateQRUrl(user));
+             }
+             return new ModelAndView("qrcode", model);
+        } 
+        
         model.addAttribute("messageKey", "auth.message." + result);
         model.addAttribute("expired", "expired".equals(result));
         model.addAttribute("token", token);

@@ -3,8 +3,12 @@ package com.baeldung.registration.listener;
 import java.util.UUID;
 
 import com.baeldung.service.IUserService;
+import com.baeldung.captcha.AbstractCaptchaService;
 import com.baeldung.persistence.model.User;
 import com.baeldung.registration.OnRegistrationCompleteEvent;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
@@ -15,6 +19,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(RegistrationListener.class);
+	
     @Autowired
     private IUserService service;
 
@@ -40,6 +47,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         service.createVerificationTokenForUser(user, token);
 
         final SimpleMailMessage email = constructEmailMessage(event, user, token);
+        LOGGER.debug(email.toString());
         mailSender.send(email);
     }
 
